@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Social Media</title>
+</head>
+<body>
+    <div class="nav">
+        <ul>
+            <li><div class="sm facebook {% if accounts.facebook != 1 %} deactivate {% endif %}" data-id='facebook'></div></li>
+            <li><div class="sm twitter {% if accounts.twitter != 1 %} deactivate {% endif %}" data-id="twiiter"></div></li>
+            <li><div class="more"></div></li>
+        </ul>
+    </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="conatiner">
+        <div class="left_menu">
+            <ul>
+                <a href="#">
+                    <li>
+                        <div class="menu_section">
+                            <div class="icon"></div>
+                            <p>{{ user.username }}</p>
+                        </div>
+                    </li>    
+                </a>
+                <a href="{{ url_for('timeline') }}">
+                    <li>
+                        <div class="menu_section">
+                            <div class="icon"></div>
+                            <p>Timeline</p>
+                        </div>
+                    </li>    
+                </a>
+                <a href="#">
+                    <li>
+                        <div class="menu_section">
+                            <div class="icon"></div>
+                            <p>Friend Requests</p>
+                        </div>
+                    </li>    
+                </a>
+                <a href="#">
+                    <li>
+                        <div class="menu_section">
+                            <div class="icon"></div>
+                            <p>Notifications</p>
+                        </div>
+                    </li>    
+                </a>
+                <a href="{{ url_for('logout') }}">
+                    <li>
+                        <div class="menu_section">
+                            <div class="icon"></div>
+                            <p>Logout</p>
+                        </div>
+                    </li>    
+                </a>
+            </ul>
+        </div>
+        <div class="timeline">
+            <h1>{{ user.username }}</h1>
+            {% for post in posts %}
+                <div class="post"> 
+                    <div class="top">
+                        <div class="info">
+                            <div class="profile_pic"></div>
+                            <p>{{ user.username }}</p>
+                        </div>
+                        <div class="social media">
+                            <div class="sm facebook"></div>
+                        </div>
+                    </div>
+                    <h2>{{ post }}</h2>
+                </div>
+            {% endfor %}
+            <!-- <div class="type_something">
+                <form action="{{ url_for('share') }}" method="POST">
+                    <textarea name="posting" id="posting" cols="30" rows="10" placeholder="Write what you're thinking"></textarea>
+                    <div class="bot">
+                        <ul>
+                            <input type="checkbox" name="f" id="f">
+                            <li class="toggle"><label for="f" style="cursor:pointer;"><div class="logo facebook"></div></label></li>
+                            <input type="checkbox" name="t" id="t">
+                            <li class="toggle"><label for="t" style="cursor:pointer;"><div class="logo twitter"></div></label></li>
+                        </ul>
+                        <input type="submit" value="Share :3" class="btn">
+                </form>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

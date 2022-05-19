@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .container {
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        body {
+            background-color: lavender;
+        }
+    </style>
+    <title>Login</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <h2>Login</h2>
+        <div class="logo"></div>
+        <div class="form">
+            <form action="{{ url_for('login') }}" method="POST">
+                <input type="text" name='email' class="text" placeholder="Email">
+                <input type="password" name='password' class='text' placeholder="Password">
+                <input type="submit" class='btn' value="Login">
+            </form>
+            <div class="group">
+                <a href="{{ url_for('forgot_password') }}">Forgot your password !</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

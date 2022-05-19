@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Social Media</title>
+</head>
+<body>
+    <div class="nav">
+        <ul>
+            <li><div class="sm facebook {% if accounts.facebook != 1 %} deactivate {% endif %}" data-id='facebook'></div></li>
+            <li><div class="sm twitter {% if accounts.twitter != 1 %} deactivate {% endif %}" data-id="twiiter"></div></li>
+            <li><div class="more"></div></li>
+        </ul>
+    </div>
+    <div class="conatiner">
+        <div class="left_menu">
+            <ul>
+                <a href="#">
+                    <li>
+                        <div class="menu_section">
+                            <div class="icon"></div>
+                            <p>{{ user.username }}</p>
+                        </div>
+                    </li>    
+                </a>
+                <a href="#">
+                    <li>
+                        <div class="menu_section">
+                            <div class="icon"></div>
+                            <p>Account Settings</p>
+                        </div>
+                    </li>    
+                </a>
+                <a href="#">
+                    <li>
+                        <div class="menu_section">
+                            <div class="icon"></div>
+                            <p>Friend Requests</p>
+                        </div>
+                    </li>    
+                </a>
+                <a href="#">
+                    <li>
+                        <div class="menu_section">
+                            <div class="icon"></div>
+                            <p>Notifications</p>
+                        </div>
+                    </li>    
+                </a>
+                <a href="{{ url_for('logout') }}">
+                    <li>
+                        <div class="menu_section">
+                            <div class="icon"></div>
+                            <p>Logout</p>
+                        </div>
+                    </li>    
+                </a>
+            </ul>
+        </div>
+        <div class="timeline">
+            <h1>{{ user.username }} - Adding accounts</h1>
+            <div class="forms">
+                {% for account in user.accounts %}
+                    {% if account.name == 'facebook' %}
+                        <h3>you've a facebook account already</h3>
+                    {% endif %}
+                {% endfor %}
+                <form action="{{ url_for('add_account') }}" method="POST">
+                    <input type="hidden" name="account" value='facebook'>
+                    <div class="site">
+                        <div class="icon facebook"></div>                        
+                        <h3>Facebook</h3>
+                    </div>
+                    <input type="text" name="email" class="text" placeholder="Facebook Email">
+                    <input type="password" name="password" class="text" placeholder="Facebook Password"><br>
+                    <input type="submit" class="btn" value="Add">
+                </form>
+                {% for account in user.accounts %}
+                    {% if account.name == 'twitter' %}
+                        <h3>you've a twitter account already</h3>
+                    {% endif %}
+                {% endfor %}
+                <form action="{{ url_for('add_account') }}" method="POST">
+                    <input type="hidden" name="account" value='twitter'>
+                    <div class="site">
+                        <div class="icon twitter"></div>                        
+                        <h3>Twitter</h3>
+                    </div>
+                    <input type="text" name="email" class="text" placeholder="Twitter Email">
+                    <input type="password" name="password" class="text" placeholder="Twiter Password"><br>
+                    <input type="submit" class="btn" value="Add">
+                </form>
+            </div>
+            <!-- <div class="type_something">
+                <form action="{{ url_for('share') }}" method="POST">
+                    <textarea name="posting" id="posting" cols="30" rows="10" placeholder="Write what you're thinking"></textarea>
+                    <div class="bot">
+                        <ul>
+                            <input type="checkbox" name="f" id="f">
+                            <li class="toggle"><label for="f" style="cursor:pointer;"><div class="logo facebook"></div></label></li>
+                            <input type="checkbox" name="t" id="t">
+                            <li class="toggle"><label for="t" style="cursor:pointer;"><div class="logo twitter"></div></label></li>
+                        </ul>
+                        <input type="submit" value="Share :3" class="btn">
+                </form>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

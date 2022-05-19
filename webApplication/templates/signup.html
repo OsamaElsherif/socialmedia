@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .container {
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        body {
+            background-color: lavender;
+        }
+    </style>
+    <title>Register</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <h2>Registeratioin</h2>
+        <div class="logo"></div>
+        <div class="form">
+            <form action="{{ url_for('signup') }}" method="POST">
+                <div class="group">
+                    <input type="text" name='fname' class='text' placeholder="First name">
+                    <input type="text" name='lname' class='text' placeholder="Last name">
+                </div>
+                <div class="group">
+                    <input type="text" name='username' class="text" placeholder="Username">
+                </div>
+                <div class="group">
+                    <input type="text" name='email' class="text" placeholder="Email">
+                </div>
+                <div class="group">
+                    <input type="password" name='pass' class='text' placeholder="Password">
+                    <input type="password" name='repass' class='text' placeholder="Re-Password">
+                </div>
+                <input type="submit" class='btn' value="Sign up">
+            </form>
+            <a href="{{ url_for('login') }}">Already have an account !</a>
+        </div>
+    </div>
+</body>
+</html>
